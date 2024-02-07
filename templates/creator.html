@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+     
+    <script>
+        var code = "{{ code }}";
+    </script>
+
+    
+
+    <title>Discover Weirdly</title>
+</head>
+<body>
+
+<section id="parameterSelection">
+
+    <div id="nameSelection" class="textboxContainer">
+        <p class="sectionTitle">Playlist Name</p>
+        
+        <input type="text" id="nameTb" name="playlist name">
+    </div>
+
+    <div id="numberSelection" class="textboxContainer">
+        <p class="sectionTitle">Number of Tracks</p>
+        
+        <input type="text" id="numberTb" name="number of tracks">
+    </div>
+
+    <div id="releaseDateSelection" class="sliderContainer">
+        <p class="sectionTitle">Release Date Range</p>
+        <div class="sliderValues">
+            <div class="sliderValue" id="selectedReleaseDateMin">1950</div>
+            <div class="sliderValue" id="selectedReleaseDateMax">2000</div>    
+        </div>
+        <div class="wrapper">
+            <div class="sliderTrack"></div>
+            <input type="range" id="labelReleaseDateMin" name="labelReleaseDateMin" min="1700" max="2023" value="1950" step="5" onchange="updateValue('selectedReleaseDateMin', this.value)">
+            <input type="range" id="labelReleaseDateMax" name="labelReleaseDateMax" min="1700" max="2023" value="2000" step="5" onchange="updateValue('selectedReleaseDateMax', this.value)">
+        </div>
+        
+    </div>
+  
+    <div id="genreSection" class="checkboxesContainer">
+        <p class="sectionTitle">Genres to Include</p>
+        <form>
+            <label for="genres1"><input type="checkbox" id="genres1"> Checkbox 1</label><br>
+            <label for="genres2"><input type="checkbox" id="genres2"> Checkbox 2</label><br>
+            <label for="genres3"><input type="checkbox" id="genres3"> Checkbox 3</label><br>
+            <label for="genres4"><input type="checkbox" id="genres4"> Checkbox 4</label><br>
+            <label for="genres5"><input type="checkbox" id="genres5"> Checkbox 5</label><br>
+            <label for="genres6"><input type="checkbox" id="genres6"> Checkbox 6</label><br>
+            <label for="genres7"><input type="checkbox" id="genres7"> Checkbox 7</label><br>
+        </form>
+        
+    </div>
+
+    <div id="popularitySection" class="sliderContainer">
+        <p class="sectionTitle">Popularity</p>
+        <div class="sliderValues">
+            <div class="sliderValue" id="selectedReleaseDateMin">Not at all</div>
+            <div class="sliderValue" id="selectedReleaseDateMax">Very</div>    
+        </div>
+        <div class="wrapper">
+            <div class="sliderTrack"></div>
+            <input type="range" id="popularityMin" name="popularityMin" min="0" max="100" value="50" step="1">
+            <input type="range" id="popularityMax" name="popularityMax" min="0" max="110" value="50" step="1">
+        </div>
+        
+    </div>
+
+    <div id="durationSection" class="sliderContainer">
+        <p class="sectionTitle">Duration</p>
+        <div class="sliderValues">
+            <div class="sliderValue" id="selectedDurationMin">230</div>
+            <div class="sliderValue" id="selectedDurationMax">270</div> 
+        </div>
+        <div class="wrapper">
+            <div class="sliderTrack"></div>
+            <input type="range" id="durationMin" name="durationMin" min="30" max="600" value="230" step="5" onchange="updateValue('selectedDurationMin', this.value)">
+            <input type="range" id="durationMax" name="durationMax" min="30" max="600" value="270" step="5" onchange="updateValue('selectedDurationMax', this.value)">
+        </div>
+        
+    </div>
+
+    <div id="lyricsSection" class="checkboxesContainer">
+        <p class="sectionTitle">Lyrics</p>
+        <form>
+            <label for="lyrics1"><input type="checkbox" id="lyrics1"> No lyrics</label><br>
+            <label for="lyrics2"><input type="checkbox" id="lyrics2"> Yes lyrics</label><br>
+        </form>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/playlistCreator.js')}}"></script>
+
+   
+</section>
+<section>
+    <div>
+        <input class="btn" type="button" onclick="make()" value="Let the magic happen"></br>
+    </div>
+</section>
+
+</body>
+</html>
