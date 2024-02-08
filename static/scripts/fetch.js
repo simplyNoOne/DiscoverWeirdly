@@ -4,7 +4,7 @@ const params = new URLSearchParams(window.location.search);
 
 
 
-async function auth(){
+function auth(){
     console.log(code);
 
 
@@ -18,10 +18,12 @@ async function auth(){
 async function load(){
     if(code != 'None'){
         console.log("kjdhalkadfshdkifhfdiklajhfdkldsaj")
-        const accessToken = await getAccessToken(clientId, code);
-        var profile = await fetchProfile(accessToken);
+        const tokens = await getTokens(clientId, code);
+        var profile = await fetchProfile(tokens.access);
         console.log(profile);
         localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem('access_token', tokens.access);
+        localStorage.setItem('refresh_token', tokens.refresh);
         
         
         console.log(profile.display_name);
@@ -38,7 +40,7 @@ load();
 
 // }
 
-async function getAccessToken(clientId, code) {
+async function getTokens(clientId, code) {
     const verifier = localStorage.getItem("verifier");
 
     console.log(code);
@@ -60,7 +62,11 @@ async function getAccessToken(clientId, code) {
     const responseJson = await result.json();
     console.log(responseJson);
     const { access_token } = responseJson;
-    return access_token;
+    const { refresh_token } = responseJson;
+    return {
+        access: access_token,
+        refresh: refresh_token
+    };
 }
 
 async function fetchProfile(token) {
@@ -98,7 +104,7 @@ async function redirectToAuthCodeFlow(clientId) {
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", "http://localhost:4321/callback");
-    params.append("scope", "user-read-private user-read-email");
+    params.append("scope", "user-read-private user-read-email playlist-modify-public playlist-modify-private");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
 
