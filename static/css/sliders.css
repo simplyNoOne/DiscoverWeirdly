@@ -32,7 +32,7 @@ input[type="range"]::-webkit-slider-thumb{
     -webkit-appearance: none;
     height: 1.7em;
     width: 1.7em;
-    background-color: brown;
+    background-color: #1db954;
     cursor: pointer;
     border-radius: 10px;
     pointer-events: auto;
@@ -43,7 +43,7 @@ input[type="range"]::-moz-range-thumb{
     appearance: none;
     height: 1.7em;
     width: 1.7em;
-    background-color: brown;
+    background-color: #1db954;
     cursor: pointer;
     border-radius: 50%;
     pointer-events: auto;
@@ -53,15 +53,15 @@ input[type="range"]::-ms-thumb{
     appearance: none;
     height: 1.7em;
     width: 1.7em;
-    background-color: brown;
+    background-color: #1db954;
     cursor: pointer;
     border-radius: 50%;
     pointer-events: auto;
 }
 
 input[type="range"]:active::-webkit-slider-thumb{
-    background-color: white;
-    border: 3px solid brown;
+    background-color: #c4c4c4;
+    border: 5px solid #1db954;
 }
 
 /* slider parts */
@@ -74,13 +74,17 @@ input[type="range"]:active::-webkit-slider-thumb{
     height: 100%;
     width: 50%; /* Set the width of the slider */
     border: 2px solid yellow;
+    font-family: 'Helvatica', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0e3f0d;
 }
 
 
 .sliderTrack{
     width: 100%;
-    height: 8px;
-    background-color: #4f4a4a;
+    height: 10px;
+    background-color: #0e3f0d;
     margin:auto;
     top: 0;
     bottom: 0;
@@ -92,7 +96,7 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .wrapper{
     position: relative;
-    top: 50px;
+    top: 35px;
     width: 100%;
     height: 30px;
     border: 1px solid red;
@@ -100,10 +104,11 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .sliderValues{
     position: relative;
-    top: 30px;
-    width: 100%;
+    top: 20px;
+    left: -20%;
+    width: 140%;
     height: 20px;
-    padding: 10px;
+    padding: 0px;
     padding-bottom: 0;
     border: 1px solid blue;
     display: flex;

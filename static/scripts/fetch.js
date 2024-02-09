@@ -3,8 +3,8 @@ const clientSecret = "f6e5aba8393f4fc385c6a91ce91599a5";
 const params = new URLSearchParams(window.location.search);
 
 
-
 function auth(){
+    console.log("AUTH");
     console.log(code);
 
 
@@ -24,6 +24,7 @@ async function load(){
         localStorage.setItem('profile', JSON.stringify(profile));
         localStorage.setItem('access_token', tokens.access);
         localStorage.setItem('refresh_token', tokens.refresh);
+        localStorage.setItem('token_created_time', JSON.stringify(new Date()));
         
         
         console.log(profile.display_name);
@@ -109,6 +110,16 @@ async function redirectToAuthCodeFlow(clientId) {
     params.append("code_challenge", challenge);
 
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
+//     try{
+//         const response = await fetch(`https://accounts.spotify.com/authorize?${params.toString()}`);
+//         console.log('Authorization response:', response);
+
+//         // For a redirect, you might use window.location
+//         // window.location = authorizationUrl;
+//         localStorage.setItem('code', response.code);
+//     } catch (error) {
+//         console.error('Error during authorization:', error);
+//   }
 }
 
 function generateCodeVerifier(length) {

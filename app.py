@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SESSION_COOKIE_NAME'] = 'Spotify Cookie'
 app.secret_key = 'dsfhku324rdf*$&@(&*($GF&KUGF73$))'
 TOKEN_INFO = 'token'
+code = None
 
 # @app.route ('/')
 # def index():
@@ -24,19 +25,16 @@ TOKEN_INFO = 'token'
 def index():
     code = session.get('code', None)
     session.clear()
-    print(code)
     return render_template('index.html', code=code)
 
 
 @app.route('/create/')
 def create():
-    code = session.get('code', None)
-    print(code)
-    return render_template('creator.html', code=code)
+    return render_template('creator.html')
 
 @app.route('/callback/')
 def callback():
-    session['code'] = request.args.get('code')
+    session['code'] = request.args.get('code', default=None)
     return redirect(url_for('index'))
 
 @app.route('/profcallback/')

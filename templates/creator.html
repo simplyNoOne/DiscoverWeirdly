@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/playlistCreation.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sliders.css')}}">
      
     <script>
@@ -77,7 +77,7 @@
             <label for="pop"><input type="checkbox" id="pop"> Pop</label><br>
             <label for="punk"><input type="checkbox" id="punk"> Punk</label><br>
             <label for="reggae"><input type="checkbox" id="reggae"> Reggae</label><br>
-            <label for="soundtrack"><input type="checkbox" id="soundtrack"> Soundtracks</label><br>
+            <label for="rock"><input type="checkbox" id="rock"> Rock</label><br>
             <label for="throat-singing"><input type="checkbox" id="throat-singing"> Throat Singing</label><br>
         </form>
         
@@ -121,6 +121,7 @@
     </div>
 
     <script src="{{ url_for('static', filename='scripts/playlistCreator.js')}}"></script>
+    <script src="{{ url_for('static', filename='scripts/refresh.js')}}"></script>
 
    
 </section>

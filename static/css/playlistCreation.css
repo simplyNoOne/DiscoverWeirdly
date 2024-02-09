@@ -1,0 +1,74 @@
+/* Optional styling for better visibility */
+body {
+    display: flex;
+    align-items: center;
+    vertical-align: bottom;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-color: #c4c4c4;
+}
+
+#parameterSelection{
+    height: 100%;
+    top: 10px;
+    padding: 20px, 10px;
+    font-family: 'Helvatica', sans-serif;
+    font-size: 16px;
+    color: #191414; 
+}
+
+.sectionTitle{
+    font-family: 'Helvatica', sans-serif;
+    font-size: 34px;
+    color: #0e3f0d; /* Slightly darker grey text color */
+    margin: 5px;
+}
+
+.textboxContainer{
+    padding: 20px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+
+.sliderTitle{
+    
+   /* left: 100px; /* Set the left position in pixels 
+    top: 10px; /* Set the top position in pixels */
+    width: 200px; /* Set the width of the slider */
+}
+
+
+.sliderContainer{
+    padding: 10px;
+    margin-bottom: 20px;
+    height: 150px;
+     /* Set the height of the container */
+    border: 1px solid black;
+}
+
+.checkboxesContainer{
+    padding: 20px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+
+}
+
+.btn {
+    background-color: #1db954; /* Green button color */
+    color: #191414;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: 650;
+    font-stretch: semi-expanded;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    color: #c4c4c4;
+    background-color: #0e3f0d; /* Darker green on hover */
+}

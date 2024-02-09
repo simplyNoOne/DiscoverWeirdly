@@ -82,6 +82,12 @@ async function createPlaylist(){
     // Example: Get popularity range using sliders
     const minPopularity = parseInt(document.getElementById("popularityMin").value);
     const maxPopularity = parseInt(document.getElementById("popularityMax").value);
+    const minDuration = parseInt(document.getElementById("durationMin").value);
+    if(minDuration == 30)
+        minDuration = 0;
+    const maxDuration = parseInt(document.getElementById("durationMax").value);
+    if(maxDuration == 600)
+        maxDuration = 6000;
 
     // Example: Get selected lyrics option using checkboxes
     var minInstrumental = 0.55;
@@ -94,11 +100,22 @@ async function createPlaylist(){
         maxInstrumental = 1;
     }
 
+    let constraints = {
+        minReleaseDate: minReleaseDate,
+        maxReleaseDate: maxReleaseDate,
+        minDuration: minDuration,
+        maxDuration: maxDuration, 
+        minPopularity: minPopularity, 
+        maxPopularity: maxPopularity, 
+        minInstrumental: minInstrumental, 
+        maxInstrumental: maxInstrumental
+    };
+
     if(maxInstrumental >= minInstrumental){
         var leftToAdd = numberOfTracks;
         while(leftToAdd > 0){
             let toAdd = Math.min(leftToAdd, 50);
-            const added = await putSongsIntoPlaylist(playlistId, toAdd, minReleaseDate, maxReleaseDate, minPopularity, maxPopularity, minInstrumental, maxInstrumental);
+            const added = await putSongsIntoPlaylist(playlistId, toAdd, constraints);
             leftToAdd -= added;
             console.log(added);
         }
@@ -110,9 +127,9 @@ async function createPlaylist(){
    
  }
 
- async function putSongsIntoPlaylist(playlistId, numberOfTracks, minReleaseDate, maxReleaseDate, minPopularity, maxPopularity, minInst, maxInst){
-    const searchQuery = createSearchQuery(numberOfTracks, minPopularity, maxPopularity, minInst, maxInst);
-    const tracks = await getSongs(searchQuery);
+ async function putSongsIntoPlaylist(playlistId, numberOfTracks, constraints){
+    const searchQuery = createSearchQuery(numberOfTracks, constraints);
+    const tracks = await getSongsRecommedations(searchQuery);
     console.log(tracks);
     
     const tracksToAdd = [];
@@ -120,12 +137,23 @@ async function createPlaylist(){
     tracks.forEach(track => {
         let dateObject = new Date(track.album.release_date);
         let year = dateObject.getFullYear();
-        if(year >= minReleaseDate && year <= maxReleaseDate){
+        if( addedCount < numberOfTracks && year >= constraints.minReleaseDate - 5 && year <= constraints.maxReleaseDate + 5){
             tracksToAdd.push(track.uri);
             addedCount += 1;
         }
             
     });
+
+    console.log(addedCount);
+
+    if(numberOfTracks - addedCount > 0){
+        const additionalTracks = await getSongsSearch(numberOfTracks - addedCount, constraints.minReleaseDate, constraints.maxReleaseDate);
+        console.log(additionalTracks);
+        additionalTracks.forEach(track => {
+            tracksToAdd.push(track.uri);
+        });
+    }
+    
 
     const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
 
@@ -157,32 +185,34 @@ async function createPlaylist(){
 
  }
 
- function getGenres(){
+ function getGenres(separator){
     const selectedGenres = [];
     const genreCheckboxes = document.querySelectorAll('#genreSection input[type="checkbox"]:checked');
     genreCheckboxes.forEach(checkbox => {
         selectedGenres.push(checkbox.id);
     });
-    const convertedList = selectedGenres.join(",");
+    const convertedList = selectedGenres.join(separator);
     console.log(convertedList);
     return convertedList;
  }
 
- function createSearchQuery(num, minPop, maxPop, minInst, maxInst){
+ function createSearchQuery(num, constraints){
     var searchQuery = new URLSearchParams();
-    var possibleGenres = getGenres();
+    var possibleGenres = getGenres(",");
     searchQuery.append("seed_genres", possibleGenres);
-    searchQuery.append("limit", num);
-    searchQuery.append("min_popularity", minPop);
-    searchQuery.append("max_popularity", maxPop);
-    searchQuery.append("min_instrumentalness", minInst);
-    searchQuery.append("max_instrumentalness", maxInst);
+    searchQuery.append("limit", num + 30);
+    searchQuery.append("min_duration_ms", constraints.minDuration * 1000);
+    searchQuery.append("max_duration_ms", constraints.maxDuration * 1000);
+    searchQuery.append("min_popularity", constraints.minPopularity);
+    searchQuery.append("max_popularity", constraints.maxPopularity);
+    searchQuery.append("min_instrumentalness", constraints.minInstrumental);
+    searchQuery.append("max_instrumentalness", constraints.maxInstrumental);
 
 
     return searchQuery.toString();
  }
 
- async function getSongs(searchQuery){
+ async function getSongsRecommedations(searchQuery){
 
     var url = `https://api.spotify.com/v1/recommendations?`;
     url += searchQuery;
@@ -202,4 +232,39 @@ async function createPlaylist(){
       console.error('Error fetching recommendations:', error);
     }
 
+ }
+
+ async function getSongsSearch(num, yearMin, yearMax){
+
+    var url = `https://api.spotify.com/v1/search?`;
+
+    var alphabet = "abcdefghijklmnopqrstuwvxyz";
+    var query = alphabet[Math.floor(Math.random() * alphabet.length)];
+    query +=" year:" + yearMin +"-" + yearMax;
+    query += " genre:" + getGenres(",");
+
+    var searchQuery = new URLSearchParams();
+    searchQuery.append("q", query);
+    searchQuery.append("type", "track");
+    searchQuery.append("limit", num);
+
+    console.log(searchQuery);
+
+    url += searchQuery;
+
+    try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${access_token}`,
+          },
+        });
+    
+        const data = await response.json();
+        console.log('Searches:', data);
+        return data.tracks.items;
+      } catch (error) {
+        console.error('Error fetching searches:', error);
+      }
+  
  }
