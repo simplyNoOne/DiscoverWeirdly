@@ -69,8 +69,8 @@ async function createPlaylist(){
     console.log(playlistId);
 
     const numberOfTracks = parseInt(document.getElementById("numberTb").value);
-    const minReleaseDate = parseInt(document.getElementById("labelReleaseDateMin").value);
-    const maxReleaseDate = parseInt(document.getElementById("labelReleaseDateMax").value);
+    const minReleaseDate = parseInt(document.getElementById("releaseDateMin").value);
+    const maxReleaseDate = parseInt(document.getElementById("releaseDateMax").value);
 
     // Example: Get selected genres using checkboxes
     
@@ -78,10 +78,10 @@ async function createPlaylist(){
     // Example: Get popularity range using sliders
     const minPopularity = parseInt(document.getElementById("popularityMin").value);
     const maxPopularity = parseInt(document.getElementById("popularityMax").value);
-    const minDuration = parseInt(document.getElementById("durationMin").value);
+    var minDuration = parseInt(document.getElementById("durationMin").value);
     if(minDuration == 30)
         minDuration = 0;
-    const maxDuration = parseInt(document.getElementById("durationMax").value);
+    var maxDuration = parseInt(document.getElementById("durationMax").value);
     if(maxDuration == 600)
         maxDuration = 6000;
 
@@ -177,7 +177,7 @@ async function createPlaylist(){
         console.error("Error adding tracks:", error);
     }
 
-    return addedCount;
+    return numberOfTracks;
 
  }
 

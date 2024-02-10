@@ -47,13 +47,13 @@
     <div id="releaseDateSelection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Release Date Range</p>
         <div class="sliderValues">
-            <div class="sliderValue" id="selectedReleaseDateMin">1950</div>
-            <div class="sliderValue" id="selectedReleaseDateMax">2000</div>    
+            <div class="sliderValue" id="selectedReleaseDateMin">1980</div>
+            <div class="sliderValue" id="selectedReleaseDateMax">2020</div>    
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="releaseDateMin" name="labelReleaseDateMin" min="1700" max="2023" value="1950" step="5" onchange="updateValue('selectedReleaseDateMin', this, 'releaseDateMax', 'selectedReleaseDateMax', true)">
-            <input type="range" id="releaseDateMax" name="labelReleaseDateMax" min="1700" max="2023" value="2000" step="5" onchange="updateValue('selectedReleaseDateMax', this, 'releaseDateMin', 'selectedReleaseDateMin', false)">
+            <input type="range" id="releaseDateMin" name="labelReleaseDateMin" min="1900" max="2024" value="1950" step="1" onchange="updateValue('selectedReleaseDateMin', this, 'releaseDateMax', 'selectedReleaseDateMax', true)">
+            <input type="range" id="releaseDateMax" name="labelReleaseDateMax" min="1900" max="2024" value="2020" step="1" onchange="updateValue('selectedReleaseDateMax', this, 'releaseDateMin', 'selectedReleaseDateMin', false)">
         </div>
         
     </div>
@@ -90,12 +90,12 @@
         <p class="sectionTitle">Popularity</p>
         <div class="sliderValues">
             <div class="sliderValue" id="selectedPopularityMin">Not at all</div>
-            <div class="sliderValue" id="selectedPopularityMax">Very</div>    
+            <div class="sliderValue" id="selectedPopularityMax">Very popular</div>    
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="popularityMin" name="popularityMin" min="0" max="100" value="30" step="1" onchange="updateValue('selectedPopularityMin', this, 'popularityMax', 'selectedPopularityMax', true)">
-            <input type="range" id="popularityMax" name="popularityMax" min="0" max="100" value="70" step="1" onchange="updateValue('selectedPopularityMax', this, 'popularityMin', 'selectedPopularityMin', false)">
+            <input type="range" id="popularityMin" name="popularityMin" min="0" max="100" value="10" step="1" onchange="updateValue('selectedPopularityMin', this, 'popularityMax', 'selectedPopularityMax', true, 1, describePopularity)">
+            <input type="range" id="popularityMax" name="popularityMax" min="0" max="100" value="90" step="1" onchange="updateValue('selectedPopularityMax', this, 'popularityMin', 'selectedPopularityMin', false, 1, describePopularity)">
         </div>
         
     </div>
@@ -103,13 +103,13 @@
     <div id="durationSection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Duration</p>
         <div class="sliderValues">
-            <div class="sliderValue" id="selectedDurationMin">230</div>
-            <div class="sliderValue" id="selectedDurationMax">270</div> 
+            <div class="sliderValue" id="selectedDurationMin">60s</div>
+            <div class="sliderValue" id="selectedDurationMax">500s</div> 
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="durationMin" name="durationMin" min="30" max="600" value="230" step="5" onchange="updateValue('selectedDurationMin', this, 'durationMax', 'selectedDurationMax',  true)">
-            <input type="range" id="durationMax" name="durationMax" min="30" max="600" value="270" step="5" onchange="updateValue('selectedDurationMax', this, 'durationMin', 'selectedDurationMin', false)">
+            <input type="range" id="durationMin" name="durationMin" min="30" max="600" value="60" step="5" onchange="updateValue('selectedDurationMin', this, 'durationMax', 'selectedDurationMax', true, 5, adjustDuration)">
+            <input type="range" id="durationMax" name="durationMax" min="30" max="600" value="500" step="5" onchange="updateValue('selectedDurationMax', this, 'durationMin', 'selectedDurationMin', false, 5, adjustDuration)">
         </div>
         
     </div>
@@ -124,6 +124,7 @@
     </div>
 
     <script src="{{ url_for('static', filename='scripts/sliderBehaviour.js')}}"></script>
+    <script src="{{ url_for('static', filename='scripts/choiceValidator.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/playlistCreator.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/refresh.js')}}"></script>
 
@@ -131,7 +132,7 @@
 </div>
 <div id="parameterSubmit" class="outerContainer">
     <div>
-        <input class="btn" type="button" onclick="make()" value="Let the magic happen"></br>
+        <input class="btn" type="button" onclick="make()" onmouseenter="validate(this)" value="Let the magic happen"></br>
     </div>
 </div>
 

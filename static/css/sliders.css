@@ -59,9 +59,14 @@ input[type="range"]::-ms-thumb{
     pointer-events: auto;
 }
 
-input[type="range"]:active::-webkit-slider-thumb{
+input[type="range"]:hover::-webkit-slider-thumb{
     background-color: #efefef;
     border: 5px solid #1db954;
+}
+
+input[type="range"]:active::-webkit-slider-thumb{
+    background-color: #efefef;
+    border: 5px solid #0e3f0d;
 }
 
 /* slider parts */
