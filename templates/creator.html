@@ -15,33 +15,36 @@
     <title>Discover Weirdly</title>
 </head>
 <body>
+    <div id="info" class="outerContainer">
+        <h1>Select the guidelines for your playlist</h1>
+        <h2>( Not everything might be perfectly aligned with your wishes, but nothing in life is quite perfect, is it? )</h2>
+    </div>
+<div id="parameterSelection" class="outerContainer">
 
-<section id="parameterSelection">
-
-    <div id="nameSelection" class="textboxContainer">
+    <div id="nameSelection" class="textboxContainer innerContainer">
         <p class="sectionTitle">Playlist Name</p>
         
         <input type="text" id="nameTb">
     </div>
 
-    <div id="descriptionSelection" class="textboxContainer">
+    <div id="descriptionSelection" class="textboxContainer innerContainer">
         <p class="sectionTitle">Playlist Description</p>
         
         <input type="text" id="descriptionTb">
     </div>
 
-    <div id="visibilitySelection" class="checkboxesContainer">
+    <div id="visibilitySelection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Visibility</p>
         <label for="visibility"><input type="checkbox" id="visibility"> Public</label><br>
     </div>
 
-    <div id="numberSelection" class="textboxContainer">
+    <div id="numberSelection" class="textboxContainer innerContainer">
         <p class="sectionTitle">Number of Tracks</p>
         
         <input type="text" id="numberTb" oninput="validateNumberInput(this)">
     </div>
 
-    <div id="releaseDateSelection" class="sliderContainer">
+    <div id="releaseDateSelection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Release Date Range</p>
         <div class="sliderValues">
             <div class="sliderValue" id="selectedReleaseDateMin">1950</div>
@@ -49,13 +52,13 @@
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="labelReleaseDateMin" name="labelReleaseDateMin" min="1700" max="2023" value="1950" step="5" onchange="updateValue('selectedReleaseDateMin', this.value)">
-            <input type="range" id="labelReleaseDateMax" name="labelReleaseDateMax" min="1700" max="2023" value="2000" step="5" onchange="updateValue('selectedReleaseDateMax', this.value)">
+            <input type="range" id="releaseDateMin" name="labelReleaseDateMin" min="1700" max="2023" value="1950" step="5" onchange="updateValue('selectedReleaseDateMin', this, 'releaseDateMax', 'selectedReleaseDateMax', true)">
+            <input type="range" id="releaseDateMax" name="labelReleaseDateMax" min="1700" max="2023" value="2000" step="5" onchange="updateValue('selectedReleaseDateMax', this, 'releaseDateMin', 'selectedReleaseDateMin', false)">
         </div>
         
     </div>
   
-    <div id="genreSection" class="checkboxesContainer">
+    <div id="genreSection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Genres to Include</p>
         <form>
             <label for="a capella"><input type="checkbox" id="a capella"> A Capella</label><br>
@@ -83,21 +86,21 @@
         
     </div>
 
-    <div id="popularitySection" class="sliderContainer">
+    <div id="popularitySection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Popularity</p>
         <div class="sliderValues">
-            <div class="sliderValue" id="selectedReleaseDateMin">Not at all</div>
-            <div class="sliderValue" id="selectedReleaseDateMax">Very</div>    
+            <div class="sliderValue" id="selectedPopularityMin">Not at all</div>
+            <div class="sliderValue" id="selectedPopularityMax">Very</div>    
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="popularityMin" name="popularityMin" min="0" max="100" value="30" step="1">
-            <input type="range" id="popularityMax" name="popularityMax" min="0" max="100" value="70" step="1">
+            <input type="range" id="popularityMin" name="popularityMin" min="0" max="100" value="30" step="1" onchange="updateValue('selectedPopularityMin', this, 'popularityMax', 'selectedPopularityMax', true)">
+            <input type="range" id="popularityMax" name="popularityMax" min="0" max="100" value="70" step="1" onchange="updateValue('selectedPopularityMax', this, 'popularityMin', 'selectedPopularityMin', false)">
         </div>
         
     </div>
 
-    <div id="durationSection" class="sliderContainer">
+    <div id="durationSection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Duration</p>
         <div class="sliderValues">
             <div class="sliderValue" id="selectedDurationMin">230</div>
@@ -105,13 +108,13 @@
         </div>
         <div class="wrapper">
             <div class="sliderTrack"></div>
-            <input type="range" id="durationMin" name="durationMin" min="30" max="600" value="230" step="5" onchange="updateValue('selectedDurationMin', this.value)">
-            <input type="range" id="durationMax" name="durationMax" min="30" max="600" value="270" step="5" onchange="updateValue('selectedDurationMax', this.value)">
+            <input type="range" id="durationMin" name="durationMin" min="30" max="600" value="230" step="5" onchange="updateValue('selectedDurationMin', this, 'durationMax', 'selectedDurationMax',  true)">
+            <input type="range" id="durationMax" name="durationMax" min="30" max="600" value="270" step="5" onchange="updateValue('selectedDurationMax', this, 'durationMin', 'selectedDurationMin', false)">
         </div>
         
     </div>
 
-    <div id="lyricsSection" class="checkboxesContainer">
+    <div id="lyricsSection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Lyrics</p>
         <form>
             <label for="no-lyrics"><input type="checkbox" id="no-lyrics"> No lyrics</label><br>
@@ -120,16 +123,17 @@
         
     </div>
 
+    <script src="{{ url_for('static', filename='scripts/sliderBehaviour.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/playlistCreator.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/refresh.js')}}"></script>
 
    
-</section>
-<section>
+</div>
+<div id="parameterSubmit" class="outerContainer">
     <div>
         <input class="btn" type="button" onclick="make()" value="Let the magic happen"></br>
     </div>
-</section>
+</div>
 
 </body>
 </html>

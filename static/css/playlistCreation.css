@@ -1,13 +1,55 @@
 /* Optional styling for better visibility */
 body {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    vertical-align: bottom;
+    vertical-align: top;
     justify-content: center;
-    height: 100vh;
     width: 100%;
-    margin: 0;
+    padding: 30px;
     background-color: #c4c4c4;
+}
+
+h1{
+    font-family: 'Helvatica', sans-serif;
+    font-size: 40px;
+    margin-top: 20px;
+    color: #191414; /* Dark grey text color */
+}
+
+h2 {
+    font-family: 'Helvatica', sans-serif;
+    font-size: 24px;
+    color: #0e3f0d; /* Slightly darker grey text color */
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+
+.outerContainer{
+    padding: 10px;
+    margin: 10px;
+}
+
+.innerContainer{
+    transition: 0.3s;
+    border-radius: 13px;
+    width: 60vw;
+    padding: 20px;
+}
+
+.innerContainer:hover{
+    background-color: #efefef;
+}
+
+#info{
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#parameterSubmit{
+    
+    flex-direction: column;
+    margin-bottom: 30px;
 }
 
 #parameterSelection{
@@ -27,9 +69,7 @@ body {
 }
 
 .textboxContainer{
-    padding: 20px;
     margin-bottom: 10px;
-    border: 1px solid black;
 }
 
 .sliderTitle{
@@ -41,17 +81,12 @@ body {
 
 
 .sliderContainer{
-    padding: 10px;
     margin-bottom: 20px;
     height: 150px;
-     /* Set the height of the container */
-    border: 1px solid black;
 }
 
 .checkboxesContainer{
-    padding: 20px;
     margin-bottom: 10px;
-    border: 1px solid black;
 
 }
 
@@ -60,7 +95,7 @@ body {
     color: #191414;
     padding: 15px 30px;
     border: none;
-    border-radius: 8px;
+    border-radius: 13px;
     cursor: pointer;
     font-size: 23px;
     font-weight: 650;

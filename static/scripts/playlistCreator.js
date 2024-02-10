@@ -1,10 +1,6 @@
 var profile;
 var access_token;
 
- function updateValue(valueId, value) {
-     document.getElementById(valueId).innerText = value;
- }
-
  function onLoad(){
     var storageStr = localStorage.getItem('profile');
     profile = JSON.parse(storageStr);

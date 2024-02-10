@@ -60,7 +60,7 @@ input[type="range"]::-ms-thumb{
 }
 
 input[type="range"]:active::-webkit-slider-thumb{
-    background-color: #c4c4c4;
+    background-color: #efefef;
     border: 5px solid #1db954;
 }
 
