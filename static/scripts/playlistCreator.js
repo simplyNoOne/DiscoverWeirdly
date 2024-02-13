@@ -111,12 +111,14 @@ async function createPlaylist(){
 
     if(maxInstrumental >= minInstrumental){
         var leftToAdd = numberOfTracks;
-        while(leftToAdd > 0){
-            let toAdd = Math.min(leftToAdd, 50);
-            const added = await putSongsIntoPlaylist(playlistId, toAdd, constraints);
-            leftToAdd -= added;
-            console.log(added);
-        }
+        const iters = Math.ceil(numberOfTracks/50);
+        var iterIndex = 0;
+        //while(leftToAdd > 0){
+            let toAdd = Math.min(leftToAdd, 150);
+            await putSongsIntoPlaylist(playlistId, toAdd, constraints);
+            leftToAdd -= 50;
+            iterIndex++;
+        //}
         
     }else{
         console.log("select lyrics or no");
@@ -125,33 +127,8 @@ async function createPlaylist(){
    
  }
 
- async function putSongsIntoPlaylist(playlistId, numberOfTracks, constraints){
-    const searchQuery = createSearchQuery(numberOfTracks, constraints);
-    const tracks = await getSongsRecommedations(searchQuery);
-    console.log(tracks);
-    
-    const tracksToAdd = [];
-    var addedCount = 0;
-    tracks.forEach(track => {
-        let dateObject = new Date(track.album.release_date);
-        let year = dateObject.getFullYear();
-        if( addedCount < numberOfTracks && year >= constraints.minReleaseDate - 5 && year <= constraints.maxReleaseDate + 5){
-            tracksToAdd.push(track.uri);
-            addedCount += 1;
-        }
-            
-    });
+ async function addToPlaylist(playlistId, tracksToAdd){
 
-    console.log(addedCount);
-
-    if(numberOfTracks - addedCount > 0){
-        const additionalTracks = await getSongsSearch(numberOfTracks - addedCount, constraints.minReleaseDate, constraints.maxReleaseDate);
-        console.log(additionalTracks);
-        additionalTracks.forEach(track => {
-            tracksToAdd.push(track.uri);
-        });
-    }
-    
 
     const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
 
@@ -179,7 +156,49 @@ async function createPlaylist(){
         console.error("Error adding tracks:", error);
     }
 
-    return numberOfTracks;
+ } 
+
+ async function putSongsIntoPlaylist(playlistId, numberOfTracks, constraints){
+    var numToAdd = numberOfTracks;
+    if(numberOfTracks > 100)
+    {
+        numToAdd = 100;
+    }
+    const searchQuery = createSearchQuery(numToAdd, constraints);
+    const tracks = await getSongsRecommedations(searchQuery);
+    console.log(tracks);
+    
+    const tracksToAdd = [];
+    var addedCount = 0;
+    tracks.forEach(track => {
+        let dateObject = new Date(track.album.release_date);
+        let year = dateObject.getFullYear();
+        if( addedCount < numberOfTracks && year >= constraints.minReleaseDate - 2 && year <= constraints.maxReleaseDate + 2){
+            tracksToAdd.push(track.uri);
+            addedCount += 1;
+        }
+            
+    });
+
+    await addToPlaylist(playlistId, tracksToAdd);
+    
+    console.log(tracksToAdd);
+    tracksToAdd.length = 0;
+    console.log(tracksToAdd);
+
+    console.log(addedCount);
+
+    if(numberOfTracks - addedCount > 0){
+        numToAdd = Math.min(50, numberOfTracks - addedCount);
+        const additionalTracks = await getSongsSearch(numToAdd, constraints.minReleaseDate, constraints.maxReleaseDate);
+        console.log(additionalTracks);
+        additionalTracks.forEach(track => {
+            tracksToAdd.push(track.uri);
+        });
+    }
+
+    await addToPlaylist(playlistId, tracksToAdd);
+
 
  }
 
@@ -194,12 +213,12 @@ async function createPlaylist(){
     return convertedList;
  }
 
- function createSearchQuery(num, constraints){
+ function createSearchQuery(num, constraints, ){
     var searchQuery = new URLSearchParams();
     var possibleGenres = getGenres(",");
     searchQuery.append("seed_genres", possibleGenres);
-    searchQuery.append("limit", num + 30);
-    searchQuery.append("min_duration_ms", constraints.minDuration * 1000);
+    searchQuery.append("limit", num);
+    searchQuery.append("min_duration_ms", constraints.minDuration  * 1000);
     searchQuery.append("max_duration_ms", constraints.maxDuration * 1000);
     searchQuery.append("min_popularity", constraints.minPopularity);
     searchQuery.append("max_popularity", constraints.maxPopularity);

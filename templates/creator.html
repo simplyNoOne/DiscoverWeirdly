@@ -36,19 +36,27 @@
 
     <div id="visibilitySelection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Visibility</p>
-        <label for="visibility"><input type="checkbox" id="visibility"> Public</label><br>
+        <label class="checkboxTag" for="visibility"><input type="checkbox" id="visibility"> Public</label><br>
     </div>
 
-    <div id="numberSelection" class="textboxContainer innerContainer">
+    <div id="numberSelection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Number of Tracks</p>
         
-        <input type="text" id="numberTb" oninput="validateNumberInput(this)">
+        <div class="sliderValues">
+            <div class="sliderValue" id="selectedNumberOfSongs">50</div>
+        </div>
+        <div class="wrapper">
+            <div class="sliderTrack"></div>
+            <input type="range" id="numberOfSongs" min="1" max="150" value="50" step="1" onchange="updateValue('selectedNumberOfSongs', this)">
+            
+        </div>
+        
     </div>
 
     <div id="releaseDateSelection" class="sliderContainer innerContainer">
         <p class="sectionTitle">Release Date Range</p>
         <div class="sliderValues">
-            <div class="sliderValue" id="selectedReleaseDateMin">1980</div>
+            <div class="sliderValue" id="selectedReleaseDateMin">1950</div>
             <div class="sliderValue" id="selectedReleaseDateMax">2020</div>    
         </div>
         <div class="wrapper">
@@ -62,27 +70,27 @@
     <div id="genreSection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Genres to Include</p>
         <form>
-            <label for="a capella"><input type="checkbox" id="a capella"> A Capella</label><br>
-            <label for="alternative"><input type="checkbox" id="alternative"> Alternative</label><br>
-            <label for="broadway"><input type="checkbox" id="broadway"> Broadway</label><br>
-            <label for="classical"><input type="checkbox" id="classical"> Classical</label><br>
-            <label for="country"><input type="checkbox" id="country"> Country</label><br>
-            <label for="electronic"><input type="checkbox" id="electronic"> Electronic</label><br>
-            <label for="folk"><input type="checkbox" id="folk"> Folk</label><br>
-            <label for="gospel"><input type="checkbox" id="gospel"> Gospel</label><br>
-            <label for="hip-hop"><input type="checkbox" id="hip-hop"> Hip-Hop</label><br>
-            <label for="j-pop"><input type="checkbox" id="j-pop"> J-Pop</label><br>
-            <label for="jazz"><input type="checkbox" id="jazz"> Jazz</label><br>
-            <label for="lofi"><input type="checkbox" id="lofi"> LoFi</label><br>
-            <label for="metal"><input type="checkbox" id="metal"> Metal</label><br>
-            <label for="meditation"><input type="checkbox" id="meditation"> Meditation</label><br>
-            <label for="opera"><input type="checkbox" id="opera"> Opera</label><br>
-            <label for="phonk"><input type="checkbox" id="phonk"> Phonk</label><br>
-            <label for="pop"><input type="checkbox" id="pop"> Pop</label><br>
-            <label for="punk"><input type="checkbox" id="punk"> Punk</label><br>
-            <label for="reggae"><input type="checkbox" id="reggae"> Reggae</label><br>
-            <label for="rock"><input type="checkbox" id="rock"> Rock</label><br>
-            <label for="throat-singing"><input type="checkbox" id="throat-singing"> Throat Singing</label><br>
+            <label class="checkboxTag" for="a capella"><input type="checkbox" id="a capella"> A Capella</label><br>
+            <label class="checkboxTag" for="alternative"><input type="checkbox" id="alternative"> Alternative</label><br>
+            <label class="checkboxTag" for="broadway"><input type="checkbox" id="broadway"> Broadway</label><br>
+            <label class="checkboxTag" for="classical"><input type="checkbox" id="classical"> Classical</label><br>
+            <label class="checkboxTag" for="country"><input type="checkbox" id="country"> Country</label><br>
+            <label class="checkboxTag" for="electronic"><input type="checkbox" id="electronic"> Electronic</label><br>
+            <label class="checkboxTag" for="folk"><input type="checkbox" id="folk"> Folk</label><br>
+            <label class="checkboxTag" for="gospel"><input type="checkbox" id="gospel"> Gospel</label><br>
+            <label class="checkboxTag" for="hip-hop"><input type="checkbox" id="hip-hop"> Hip-Hop</label><br>
+            <label class="checkboxTag" for="j-pop"><input type="checkbox" id="j-pop"> J-Pop</label><br>
+            <label class="checkboxTag" for="jazz"><input type="checkbox" id="jazz"> Jazz</label><br>
+            <label class="checkboxTag" for="lofi"><input type="checkbox" id="lofi"> LoFi</label><br>
+            <label class="checkboxTag" for="metal"><input type="checkbox" id="metal"> Metal</label><br>
+            <label class="checkboxTag" for="meditation"><input type="checkbox" id="meditation"> Meditation</label><br>
+            <label class="checkboxTag" for="opera"><input type="checkbox" id="opera"> Opera</label><br>
+            <label class="checkboxTag" for="phonk"><input type="checkbox" id="phonk"> Phonk</label><br>
+            <label class="checkboxTag" for="pop"><input type="checkbox" id="pop"> Pop</label><br>
+            <label class="checkboxTag" for="punk"><input type="checkbox" id="punk"> Punk</label><br>
+            <label class="checkboxTag" for="reggae"><input type="checkbox" id="reggae"> Reggae</label><br>
+            <label class="checkboxTag" for="rock"><input type="checkbox" id="rock"> Rock</label><br>
+            <label class="checkboxTag" for="throat-singing"><input type="checkbox" id="throat-singing"> Throat Singing</label><br>
         </form>
         
     </div>
@@ -118,8 +126,8 @@
     <div id="lyricsSection" class="checkboxesContainer innerContainer">
         <p class="sectionTitle">Lyrics</p>
         <form>
-            <label for="no-lyrics"><input type="checkbox" id="no-lyrics"> No lyrics</label><br>
-            <label for="yes-lyrics"><input type="checkbox" id="yes-lyrics"> Yes lyrics</label><br>
+            <label class="checkboxTag" for="no-lyrics"><input type="checkbox" id="no-lyrics"> No lyrics</label><br>
+            <label class="checkboxTag" for="yes-lyrics"><input type="checkbox" id="yes-lyrics"> Yes lyrics</label><br>
         </form>
         
     </div>

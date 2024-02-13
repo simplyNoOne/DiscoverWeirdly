@@ -1,4 +1,16 @@
 /* Optional styling for better visibility */
+:root {
+    --spotify-green: #1db954;
+    --dark-green: #0e3f0d;
+    --spotify-black: #191414;
+    --beige: #c4c4c4;
+    --almost-white: #efefef;
+    --wrong-light: #e64d4d;
+    --wrong-dark: #4d0d0d;
+  }
+
+
+
 body {
     display: flex;
     flex-direction: column;
@@ -7,20 +19,20 @@ body {
     justify-content: center;
     width: 100%;
     padding: 30px;
-    background-color: #c4c4c4;
+    background-color: var(--beige);
 }
 
 h1{
     font-family: 'Helvatica', sans-serif;
     font-size: 40px;
     margin-top: 20px;
-    color: #191414; /* Dark grey text color */
+    color: var(--spotify-black); /* Dark grey text color */
 }
 
 h2 {
     font-family: 'Helvatica', sans-serif;
     font-size: 24px;
-    color: #0e3f0d; /* Slightly darker grey text color */
+    color: var(--dark-green); /* Slightly darker grey text color */
     margin-bottom: 30px;
     margin-top: 0px;
 }
@@ -38,7 +50,7 @@ h2 {
 }
 
 .innerContainer:hover{
-    background-color: #efefef;
+    background-color: var(--almost-white);
 }
 
 #info{
@@ -58,13 +70,13 @@ h2 {
     padding: 20px, 10px;
     font-family: 'Helvatica', sans-serif;
     font-size: 16px;
-    color: #191414; 
+    color: var(--spotify-black); 
 }
 
 .sectionTitle{
     font-family: 'Helvatica', sans-serif;
     font-size: 34px;
-    color: #0e3f0d; /* Slightly darker grey text color */
+    color: var(--dark-green); /* Slightly darker grey text color */
     margin: 5px;
 }
 
@@ -87,12 +99,13 @@ h2 {
 
 .checkboxesContainer{
     margin-bottom: 10px;
+    font-size: 20px;
 
 }
 
 .btn {
-    background-color: #1db954; /* Green button color */
-    color: #191414;
+    background-color: var(--spotify-green); /* Green button color */
+    color: var(--spotify-black);
     padding: 15px 30px;
     border: none;
     border-radius: 13px;
@@ -104,20 +117,20 @@ h2 {
 }
 
 .btn:hover {
-    color: #c4c4c4;
-    background-color: #0e3f0d; /* Darker green on hover */
+    color: var(--beige);
+    background-color: var(--dark-green); /* Darker green on hover */
 }
 
 .wrongInput{
-    color: #191414;
-    background-color: #e64d4d; /* Darker green on hover */
+    color: var(--spotify-black);
+    background-color: var(--wrong-light); /* Darker green on hover */
 }
 
 .wrongInput:hover{
-    color: #c4c4c4;
-    background-color: #4d0d0d; /* Darker green on hover */
+    color: var(--beige);
+    background-color: var(--wrong-dark); /* Darker green on hover */
 }
 
 .inputToCorrect{
-    background-color: #e64d4d;
+    background-color: var(--wrong-light);
 }

@@ -33,6 +33,8 @@ var draggedSlider;
             document.getElementById(valueId).innerText = funcToFormat(slider.value, slider.max, slider.min);
             document.getElementById(otherValueId).innerText = funcToFormat(document.getElementById(counterpartId).value, slider.max, slider.min);
         }
+    }else{
+        document.getElementById(valueId).innerText = slider.value;
     }
  }
 
@@ -44,7 +46,7 @@ var draggedSlider;
     if(percent < 0.2)
         return "Not at all";
     if(percent < 0.4)
-        return "Some know it, some don't";
+        return "Some know it...";
     if(percent < 0.6)
         return "Mostly recognisable";
     if(percent < 0.8)
