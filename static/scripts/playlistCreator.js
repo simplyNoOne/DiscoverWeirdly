@@ -27,12 +27,14 @@ async function createPlaylist(){
       
     const playlistData = {
         name: name,
-        description: description,
-        public: isPublic
+        public: isPublic,
+        collaborative: false,
+        description: description
     };
-    console.log(profile);
+    console.log(JSON.stringify(playlistData));
     console.log(access_token);
   
+    
 
     const response = await fetch(`https://api.spotify.com/v1/users/${profile.id}/playlists`, {
         method: 'POST',

@@ -107,3 +107,17 @@ h2 {
     color: #c4c4c4;
     background-color: #0e3f0d; /* Darker green on hover */
 }
+
+.wrongInput{
+    color: #191414;
+    background-color: #e64d4d; /* Darker green on hover */
+}
+
+.wrongInput:hover{
+    color: #c4c4c4;
+    background-color: #4d0d0d; /* Darker green on hover */
+}
+
+.inputToCorrect{
+    background-color: #e64d4d;
+}

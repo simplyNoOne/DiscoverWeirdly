@@ -1,0 +1,30 @@
+input[type="checkbox"] {
+    display: inline-block;
+            position: relative;
+            width: 20px; /* Adjust as needed */
+            height: 20px; /* Adjust as needed */
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #555; /* Border color */
+            transition: background-color 0.3s;
+}
+
+input[type="checkbox"]:hover::before {
+    background-color: blue;
+   
+}
+
+input[type="checkbox"]::before{
+    content: '\2713'; /* Unicode checkmark character */
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px; /* Adjust as needed */
+            color: #fff; /* Checkmark color */
+            
+}
+
+nput[type="checkbox"]:checked{
+    visibility: visible;
+}
