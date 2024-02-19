@@ -53,6 +53,7 @@ h2 {
     background-color: var(--almost-white);
 }
 
+
 #info{
     flex-direction: column;
     margin-top: 20px;
@@ -83,6 +84,18 @@ h2 {
 .textboxContainer{
     margin-bottom: 10px;
 }
+
+
+
+input[type="text"] {
+    font-size: 18px;
+    font-family: Helvetica, sans-serif;
+    width: 100%; /* Make the text input span the entire width of the container */
+    padding: 3px; /* Padding inside the text input */
+    margin-top: 4px; /* Margin at the top of the text input */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 
 .sliderTitle{
     

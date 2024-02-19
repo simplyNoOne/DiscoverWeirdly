@@ -22,7 +22,7 @@
     </div>
 <div id="parameterSelection" class="outerContainer">
 
-    <div id="nameSelection" class="textboxContainer innerContainer">
+    <div id="nameSelection" class="textboxContainer innerContainer" onmouseleave="validate(this, 'submitBtn')" >
         <p class="sectionTitle">Playlist Name</p>
         
         <input type="text" id="nameTb">
@@ -67,30 +67,31 @@
         
     </div>
   
-    <div id="genreSection" class="checkboxesContainer innerContainer">
+    <div id="genreSection" class="checkboxesContainer innerContainer" onmouseleave="validate(this, 'submitBtn')">
         <p class="sectionTitle">Genres to Include</p>
         <form>
-            <label class="checkboxTag" for="a capella"><input type="checkbox" id="a capella"> A Capella</label><br>
+            <label class="checkboxTag" for="acoustic"><input type="checkbox" id="acoustic"> Acoustic</label><br>
             <label class="checkboxTag" for="alternative"><input type="checkbox" id="alternative"> Alternative</label><br>
-            <label class="checkboxTag" for="broadway"><input type="checkbox" id="broadway"> Broadway</label><br>
             <label class="checkboxTag" for="classical"><input type="checkbox" id="classical"> Classical</label><br>
             <label class="checkboxTag" for="country"><input type="checkbox" id="country"> Country</label><br>
             <label class="checkboxTag" for="electronic"><input type="checkbox" id="electronic"> Electronic</label><br>
             <label class="checkboxTag" for="folk"><input type="checkbox" id="folk"> Folk</label><br>
+            <label class="checkboxTag" for="french"><input type="checkbox" id="french"> French</label><br>
+            <label class="checkboxTag" for="german"><input type="checkbox" id="german"> German</label><br>
             <label class="checkboxTag" for="gospel"><input type="checkbox" id="gospel"> Gospel</label><br>
             <label class="checkboxTag" for="hip-hop"><input type="checkbox" id="hip-hop"> Hip-Hop</label><br>
+            <label class="checkboxTag" for="indian"><input type="checkbox" id="indian"> Indian</label><br>
             <label class="checkboxTag" for="j-pop"><input type="checkbox" id="j-pop"> J-Pop</label><br>
             <label class="checkboxTag" for="jazz"><input type="checkbox" id="jazz"> Jazz</label><br>
-            <label class="checkboxTag" for="lofi"><input type="checkbox" id="lofi"> LoFi</label><br>
             <label class="checkboxTag" for="metal"><input type="checkbox" id="metal"> Metal</label><br>
-            <label class="checkboxTag" for="meditation"><input type="checkbox" id="meditation"> Meditation</label><br>
             <label class="checkboxTag" for="opera"><input type="checkbox" id="opera"> Opera</label><br>
-            <label class="checkboxTag" for="phonk"><input type="checkbox" id="phonk"> Phonk</label><br>
             <label class="checkboxTag" for="pop"><input type="checkbox" id="pop"> Pop</label><br>
             <label class="checkboxTag" for="punk"><input type="checkbox" id="punk"> Punk</label><br>
             <label class="checkboxTag" for="reggae"><input type="checkbox" id="reggae"> Reggae</label><br>
             <label class="checkboxTag" for="rock"><input type="checkbox" id="rock"> Rock</label><br>
-            <label class="checkboxTag" for="throat-singing"><input type="checkbox" id="throat-singing"> Throat Singing</label><br>
+            <label class="checkboxTag" for="soundtracks"><input type="checkbox" id="soundtracks"> Soundtracks</label><br>
+            <label class="checkboxTag" for="spanish"><input type="checkbox" id="spanish"> Spanish</label><br>
+            <label class="checkboxTag" for="throat singing"><input type="checkbox" id="throat singing"> Throat Singing</label><br>
         </form>
         
     </div>
@@ -123,7 +124,7 @@
         
     </div>
 
-    <div id="lyricsSection" class="checkboxesContainer innerContainer">
+    <div id="lyricsSection" class="checkboxesContainer innerContainer" onmouseleave="validate(this, 'submitBtn')">
         <p class="sectionTitle">Lyrics</p>
         <form>
             <label class="checkboxTag" for="no-lyrics"><input type="checkbox" id="no-lyrics"> No lyrics</label><br>
@@ -141,7 +142,7 @@
 </div>
 <div id="parameterSubmit" class="outerContainer">
     <div>
-        <input class="btn" type="button" onclick="make()" onmouseenter="validate(this)" value="Let the magic happen"></br>
+        <input id="submitBtn" class="btn" type="button" onclick="make()" onmouseenter="validate(this, 'submitBtn')" value="Let the magic happen"></br>
     </div>
 </div>
 

@@ -70,7 +70,7 @@ async function createPlaylist(){
     var playlistId = await createPlaylist();
     console.log(playlistId);
 
-    const numberOfTracks = parseInt(document.getElementById("numberTb").value);
+    const numberOfTracks = parseInt(document.getElementById("numberOfSongs").value);
     const minReleaseDate = parseInt(document.getElementById("releaseDateMin").value);
     const maxReleaseDate = parseInt(document.getElementById("releaseDateMax").value);
 
@@ -195,9 +195,11 @@ async function createPlaylist(){
         additionalTracks.forEach(track => {
             tracksToAdd.push(track.uri);
         });
+
+        await addToPlaylist(playlistId, tracksToAdd);
     }
 
-    await addToPlaylist(playlistId, tracksToAdd);
+    
 
 
  }
