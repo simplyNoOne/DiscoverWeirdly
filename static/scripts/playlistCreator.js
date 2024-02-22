@@ -4,20 +4,10 @@ var access_token;
  function onLoad(){
     var storageStr = localStorage.getItem('profile');
     profile = JSON.parse(storageStr);
-    access_token = localStorage.getItem('access_token');
-    console.log(profile);
-    console.log(access_token);
-    console.log(localStorage.getItem('refresh_token'));
-    //console.log(profile.display_name);
-    
+    access_token = localStorage.getItem('access_token');    
  }
  
  onLoad();
-
- function validateNumberInput(input) {
-    // Remove non-numeric characters using a regular expression
-    input.value = input.value.replace(/[^0-9]/g, '');
-}
 
 async function createPlaylist(){
     const name = document.getElementById("nameTb").value;
@@ -34,8 +24,6 @@ async function createPlaylist(){
     console.log(JSON.stringify(playlistData));
     console.log(access_token);
   
-    
-
     const response = await fetch(`https://api.spotify.com/v1/users/${profile.id}/playlists`, {
         method: 'POST',
         headers: {
@@ -54,14 +42,6 @@ async function createPlaylist(){
 
     return data.id;
 
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log('Playlist created:', data);
-        //     return data.id;
-        // })
-        // .catch(error => {
-            
-        // });
 
 }
 
@@ -198,10 +178,6 @@ async function createPlaylist(){
 
         await addToPlaylist(playlistId, tracksToAdd);
     }
-
-    
-
-
  }
 
  function getGenres(separator){

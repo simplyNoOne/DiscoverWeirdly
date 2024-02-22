@@ -54,9 +54,6 @@ function validate(self, buttonName){
             button.classList.add('wrongInput');
             button.disabled = true;  
         }
-    }
-
-
-    
+    }  
 
 }

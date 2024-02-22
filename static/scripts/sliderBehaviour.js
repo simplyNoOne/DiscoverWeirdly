@@ -12,10 +12,8 @@ var draggedSlider;
             minSlider = document.getElementById(counterpartId);
             maxSlider = slider;
         }
-        console.log("values", minSlider.value, ", ", maxSlider.value)
         let maxVal = parseInt(maxSlider.value), minVal = parseInt(minSlider.value) ;
         if(minVal >= maxVal){
-            console.log("its wrong");
             if(slider == minSlider){
                 maxSlider.value = minVal + step;
                 maxSlider.value = Math.min(parseInt(maxSlider.value), parseInt(maxSlider.max));
@@ -24,7 +22,6 @@ var draggedSlider;
                 minSlider.value = Math.max(parseInt(minSlider.value), parseInt(minSlider.min));
             }
         }
-        console.log("values", minSlider.value, ", ", maxSlider.value);
 
         if(!funcToFormat){
             document.getElementById(valueId).innerText = slider.value;
