@@ -4,20 +4,13 @@ const params = new URLSearchParams(window.location.search);
 
 
 function auth(){
-    console.log("AUTH");
-    console.log(code);
-
-
-    console.log("kdsjahilkfdshdskafljhfdsakkjfdsalikdsafjokfdsakjdsfah");
     redirectToAuthCodeFlow(clientId);
 
 }
 
 
-
 async function load(){
     if(code != 'None'){
-        console.log("kjdhalkadfshdkifhfdiklajhfdkldsaj")
         const tokens = await getTokens(clientId, code);
         var profile = await fetchProfile(tokens.access);
         console.log(profile);
@@ -33,13 +26,8 @@ async function load(){
     
 }
 
-
 load();
 
-// async function redirectToAuthCodeFlow(clientId) {
-//     // TODO: Redirect to Spotify authorization page
-
-// }
 
 async function getTokens(clientId, code) {
     const verifier = localStorage.getItem("verifier");
