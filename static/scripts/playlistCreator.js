@@ -13,7 +13,6 @@ async function createPlaylist(){
     const name = document.getElementById("nameTb").value;
     const description  = document.getElementById("descriptionTb").value;
     const isPublic = document.getElementById("visibility").checked;
-    
       
     const playlistData = {
         name: name,
@@ -40,24 +39,15 @@ async function createPlaylist(){
 
     console.log('Playlist created:', data);
 
-    return data.id;
-
+    return data;
 
 }
 
- async function make(){
-
-    var playlistId = await createPlaylist();
-    console.log(playlistId);
-
-    const numberOfTracks = parseInt(document.getElementById("numberOfSongs").value);
+function getConstraints(){
+    
     const minReleaseDate = parseInt(document.getElementById("releaseDateMin").value);
     const maxReleaseDate = parseInt(document.getElementById("releaseDateMax").value);
-
-    // Example: Get selected genres using checkboxes
     
-
-    // Example: Get popularity range using sliders
     const minPopularity = parseInt(document.getElementById("popularityMin").value);
     const maxPopularity = parseInt(document.getElementById("popularityMax").value);
     var minDuration = parseInt(document.getElementById("durationMin").value);
@@ -67,7 +57,6 @@ async function createPlaylist(){
     if(maxDuration == 600)
         maxDuration = 6000;
 
-    // Example: Get selected lyrics option using checkboxes
     var minInstrumental = 0.55;
     var maxInstrumental = 0.45;
     if(document.getElementById("yes-lyrics").checked){
@@ -88,31 +77,35 @@ async function createPlaylist(){
         minInstrumental: minInstrumental, 
         maxInstrumental: maxInstrumental
     };
+    return constraints;
+}
 
-    if(maxInstrumental >= minInstrumental){
-        var leftToAdd = numberOfTracks;
-        const iters = Math.ceil(numberOfTracks/50);
-        var iterIndex = 0;
-        //while(leftToAdd > 0){
-            let toAdd = Math.min(leftToAdd, 150);
-            await putSongsIntoPlaylist(playlistId, toAdd, constraints);
-            leftToAdd -= 50;
-            iterIndex++;
-        //}
-        
-    }else{
-        console.log("select lyrics or no");
-    }
+function back(){
     
-   
+    window.location.href = 'http://localhost:4321/profcallback/';
+}
+
+ async function make(){
+
+    const playlist = await createPlaylist();
+    const playlistId = playlist.id;
+    console.log(playlistId);
+
+    const numberOfTracks = parseInt(document.getElementById("numberOfSongs").value);
+
+    var constraints = getConstraints();
+
+    let toAdd = Math.min(numberOfTracks, 150);
+    await getSuitableSongs(playlistId, toAdd, constraints);
+
+    // window.location.href = 'http://localhost:4321/feedback/?name=${playlist.name}';
+    window.location.href = 'http://localhost:4321/feedback/';
+
  }
 
  async function addToPlaylist(playlistId, tracksToAdd){
 
-
     const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
-
-    console.log(tracksToAdd);
 
     const requestBody = {
         uris: tracksToAdd
@@ -138,43 +131,46 @@ async function createPlaylist(){
 
  } 
 
- async function putSongsIntoPlaylist(playlistId, numberOfTracks, constraints){
+ function filterTracksToAddFromRequest(tracks, constraints){
+ 
+    const tracksToAdd = [];
+    if(constraints != null){
+        tracks.forEach(track => {
+            let dateObject = new Date(track.album.release_date);
+            let year = dateObject.getFullYear();
+            if(year >= constraints.minReleaseDate - 2 && year <= constraints.maxReleaseDate + 2){
+                tracksToAdd.push(track.uri);
+            }
+                
+        });
+    }else{
+        tracks.forEach(track => {
+            tracksToAdd.push(track.uri);
+        });   
+    }
+    return tracksToAdd;
+ }
+
+ async function getSuitableSongs(playlistId, numberOfTracks, constraints){
     var numToAdd = numberOfTracks;
-    if(numberOfTracks > 100)
-    {
+    if(numberOfTracks > 100){
         numToAdd = 100;
     }
     const searchQuery = createSearchQuery(numToAdd, constraints);
     const tracks = await getSongsRecommedations(searchQuery);
     console.log(tracks);
-    
-    const tracksToAdd = [];
-    var addedCount = 0;
-    tracks.forEach(track => {
-        let dateObject = new Date(track.album.release_date);
-        let year = dateObject.getFullYear();
-        if( addedCount < numberOfTracks && year >= constraints.minReleaseDate - 2 && year <= constraints.maxReleaseDate + 2){
-            tracksToAdd.push(track.uri);
-            addedCount += 1;
-        }
-            
-    });
 
+    let tracksToAdd = filterTracksToAddFromRequest(tracks, constraints);
+   
     await addToPlaylist(playlistId, tracksToAdd);
-    
-    console.log(tracksToAdd);
+    const addedCount = tracksToAdd.length;
     tracksToAdd.length = 0;
-    console.log(tracksToAdd);
-
-    console.log(addedCount);
 
     if(numberOfTracks - addedCount > 0){
         numToAdd = Math.min(50, numberOfTracks - addedCount);
         const additionalTracks = await getSongsSearch(numToAdd, constraints.minReleaseDate, constraints.maxReleaseDate);
         console.log(additionalTracks);
-        additionalTracks.forEach(track => {
-            tracksToAdd.push(track.uri);
-        });
+        tracksToAdd = filterTracksToAddFromRequest(additionalTracks);
 
         await addToPlaylist(playlistId, tracksToAdd);
     }
@@ -191,7 +187,7 @@ async function createPlaylist(){
     return convertedList;
  }
 
- function createSearchQuery(num, constraints, ){
+ function createSearchQuery(num, constraints ){
     var searchQuery = new URLSearchParams();
     var possibleGenres = getGenres(",");
     searchQuery.append("seed_genres", possibleGenres);
@@ -202,7 +198,6 @@ async function createPlaylist(){
     searchQuery.append("max_popularity", constraints.maxPopularity);
     searchQuery.append("min_instrumentalness", constraints.minInstrumental);
     searchQuery.append("max_instrumentalness", constraints.maxInstrumental);
-
 
     return searchQuery.toString();
  }

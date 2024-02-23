@@ -18,10 +18,13 @@ def index():
     session.clear()
     return render_template('index.html', code=code)
 
-
 @app.route('/create/')
 def create():
     return render_template('creator.html')
+
+@app.route('/feedback/')
+def feedback():
+    return render_template('feedback.html')
 
 @app.route('/callback/')
 def callback():

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+       
+    <script>
+        var code = "{{ code }}";
+    </script>
+
+    <script src="{{ url_for('static', filename='scripts/playlistCreator.js')}}"></script> 
+
+    <title>Discover Weirdly</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Your playlist was successfully created.</h2>
+        <button class="btn" onclick="back()">Let's make another</button>
+    </div>
+
+</body>
+</html>
