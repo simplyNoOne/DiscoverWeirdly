@@ -1,5 +1,4 @@
-const clientId = "b4fa254dfb694db2bf20340740580af8"; // Replace with your client ID
-const clientSecret = "f6e5aba8393f4fc385c6a91ce91599a5";
+const clientId = "b4fa254dfb694db2bf20340740580af8";
 const params = new URLSearchParams(window.location.search);
 
 
@@ -36,7 +35,6 @@ async function getTokens(clientId, code) {
 
     const params = new URLSearchParams();
     params.append("client_id", clientId);
-    params.append("client_secret", clientSecret)
     params.append("grant_type", "authorization_code");
     params.append("code", code);
     params.append("redirect_uri", "http://localhost:4321/callback");
@@ -44,7 +42,7 @@ async function getTokens(clientId, code) {
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization" : "Basic " + btoa(clientId + ":" + clientSecret) },
+        headers: { "Content-Type": "application/x-www-form-urlencoded"},
         body: params
     });
 

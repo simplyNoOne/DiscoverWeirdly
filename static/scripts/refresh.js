@@ -1,6 +1,5 @@
 
 const clientId = "b4fa254dfb694db2bf20340740580af8";
-const clientSecret = "f6e5aba8393f4fc385c6a91ce91599a5";
 
 
 const getRefreshToken = async () => {
@@ -12,8 +11,7 @@ const getRefreshToken = async () => {
     const payload = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        "Authorization" : "Basic " + btoa(clientId + ":" + clientSecret)
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
